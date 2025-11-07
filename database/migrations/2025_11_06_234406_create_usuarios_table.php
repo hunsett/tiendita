@@ -9,19 +9,24 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
+    public function up(): void {
         Schema::create('usuarios', function (Blueprint $table) {
-            $table->id();
+            $table->smallIncrements('id_usuario');
+            $table->unsignedSmallInteger('id_empleado')->unique(); // 1:1 con empleado
+            $table->string('usuario')->unique();
+            $table->string('correo_sistema')->unique();
+            $table->string('contrasenia_hash'); // guarda hash, no plano
+            $table->enum('rol', ['ADMIN','RH','JEFE','EMPLEADO'])->default('EMPLEADO');
+            $table->enum('estado', ['ACTIVO','BLOQUEADO'])->default('ACTIVO');
+            $table->timestamp('ultimo_acceso')->nullable();
             $table->timestamps();
+
+            $table->foreign('id_empleado')
+                  ->references('id_empleado')->on('empleados')
+                  ->cascadeOnUpdate()->restrictOnDelete();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
+    public function down(): void {
         Schema::dropIfExists('usuarios');
     }
 };

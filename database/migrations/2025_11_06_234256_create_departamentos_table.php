@@ -9,19 +9,14 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
+    public function up(): void {
         Schema::create('departamentos', function (Blueprint $table) {
-            $table->id();
+            $table->smallIncrements('id_departamento');
+            $table->string('nombre')->unique();
             $table->timestamps();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
+    public function down(): void {
         Schema::dropIfExists('departamentos');
     }
 };
