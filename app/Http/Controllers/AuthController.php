@@ -1,0 +1,67 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Requests\LoginRequest;
+use App\Models\Usuario;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+
+
+class AuthController extends Controller
+{
+    //
+    public function showLogin()
+    {
+        return view('auth.login');
+    }
+
+    public function login(LoginRequest $request)
+    {
+        $login = $request->input('login');
+        $password = $request->input('password');
+
+        // Buscar por usuario O por correo_sistema
+        $user = Usuario::where('usuario', $login)
+            ->orWhere('correo_sistema', $login)
+            ->first();
+
+        // Mensaje genérico para no revelar si existe o no
+        $error = 'Credenciales inválidas.';
+
+        if (!$user) {
+            return back()->withErrors(['login' => $error])->withInput();
+        }
+
+        if ($user->estado === 'BLOQUEADO') {
+            return back()->withErrors(['login' => 'Tu cuenta está bloqueada.'])->withInput();
+        }
+
+        if (!Hash::check($password, $user->contrasenia_hash)) {
+            // Opcional: throttle básico (véase rutas)
+            return back()->withErrors(['login' => $error])->withInput();
+        }
+
+        // Autenticar en guard web (sesión)
+        Auth::login($user, false);
+
+        // Regenerar sesión contra fixation
+        $request->session()->regenerate();
+
+        // Actualizar último acceso
+        $user->ultimo_acceso = now();
+        $user->save();
+
+        return redirect()->intended('/dashboard'); // ajusta tu ruta de aterrizaje
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login.show');
+    }
+}
