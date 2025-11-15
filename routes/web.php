@@ -21,6 +21,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->name('dashboard');
 
+          // 🚪 Nueva solicitud de vacaciones (formulario)
+    Route::get('/vacaciones/solicitudes/crear', [SolicitudVacacionesController::class, 'create'])
+        ->name('vacaciones.solicitudes.create');
+
+    // 💾 Guardar solicitud de vacaciones
+    Route::post('/vacaciones/solicitudes', [SolicitudVacacionesController::class, 'store'])
+        ->name('vacaciones.solicitudes.store');
+
     Route::post('/logout', [AuthController::class, 'logout'])
         ->name('logout');
 });

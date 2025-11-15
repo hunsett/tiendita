@@ -34,8 +34,8 @@
 
         <div class="flex flex-col items-start md:items-end gap-2">
             @if($rol === 'EMPLEADO')
-                <a href="#"
-                   class="inline-flex items-center px-4 py-2 rounded-lg bg-indigo-600 text-white text-sm font-semibold hover:bg-indigo-700">
+                <a href="{{ route('vacaciones.solicitudes.create') }}"
+                class="inline-flex items-center px-4 py-2 rounded-lg bg-indigo-600 text-white text-sm font-semibold hover:bg-indigo-700">
                     Nueva solicitud de vacaciones
                 </a>
             @elseif(in_array($rol, ['ADMIN','RH','JEFE']))
