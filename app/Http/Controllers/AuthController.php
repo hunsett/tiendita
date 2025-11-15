@@ -43,11 +43,16 @@ class AuthController extends Controller
             return back()->withErrors(['login' => $error])->withInput();
         }
 
-        // Autenticar en guard web (sesión)
-        Auth::login($user, false);
+        // 👇 Asegúrate de usar el guard web
+        Auth::guard('web')->login($user, false);
 
         // Regenerar sesión contra fixation
         $request->session()->regenerate();
+
+         // 👇 DEBUG AQUÍ
+        //dd('DESPUÉS DE LOGIN', Auth::user(), Auth::check(), session()->all());
+
+        
 
         // Actualizar último acceso
         $user->ultimo_acceso = now();
@@ -62,6 +67,6 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('login.show');
+        return redirect()->route('login');
     }
 }
