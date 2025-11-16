@@ -2,29 +2,59 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Usuario;              // <-- IMPORTANTE
-use Illuminate\Support\Facades\Hash; // si vas a hashear aquí
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UsuarioSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        //
-        // Asegúrate de tener un empleado con id_empleado = 1
-        Usuario::updateOrCreate(
-            ['usuario' => 'admin'],
+        DB::table('usuarios')->insert([
             [
                 'id_empleado'      => 1,
-                'correo_sistema'   => 'admin@tiendita.test',
-                'contrasenia_hash' => '123', // mutador lo hashea
+                'usuario'          => 'admin',
+                'correo_sistema'   => 'admin@mary.test',
+                'contrasenia_hash' => Hash::make('admin123'),
                 'rol'              => 'ADMIN',
                 'estado'           => 'ACTIVO',
-            ]
-        );
+                'ultimo_acceso'    => null,
+                'created_at'       => now(),
+                'updated_at'       => now(),
+            ],
+            [
+                'id_empleado'      => 2,
+                'usuario'          => 'rosa.rh',
+                'correo_sistema'   => 'rosa.rh@mary.test',
+                'contrasenia_hash' => Hash::make('rh123456'),
+                'rol'              => 'RH',
+                'estado'           => 'ACTIVO',
+                'ultimo_acceso'    => null,
+                'created_at'       => now(),
+                'updated_at'       => now(),
+            ],
+            [
+                'id_empleado'      => 3,
+                'usuario'          => 'carlos.jefe',
+                'correo_sistema'   => 'carlos.jefe@mary.test',
+                'contrasenia_hash' => Hash::make('jefe1234'),
+                'rol'              => 'JEFE',
+                'estado'           => 'ACTIVO',
+                'ultimo_acceso'    => null,
+                'created_at'       => now(),
+                'updated_at'       => now(),
+            ],
+            [
+                'id_empleado'      => 4,
+                'usuario'          => 'ana.empleada',
+                'correo_sistema'   => 'ana.empleada@mary.test',
+                'contrasenia_hash' => Hash::make('empleado123'),
+                'rol'              => 'EMPLEADO',
+                'estado'           => 'ACTIVO',
+                'ultimo_acceso'    => null,
+                'created_at'       => now(),
+                'updated_at'       => now(),
+            ],
+        ]);
     }
 }

@@ -29,6 +29,11 @@
                         </div>
                     </div>
                 @endauth
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit">Cerrar sesión</button>
+                </form>
+
             </div>
         </header>
 
