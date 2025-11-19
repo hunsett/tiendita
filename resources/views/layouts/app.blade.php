@@ -10,39 +10,76 @@
 <body class="bg-gray-100 text-gray-900">
     <div class="min-h-screen flex flex-col">
 
-        {{-- Barra superior simple --}}
-        <header class="bg-white shadow">
-            <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                    <span class="font-bold text-lg">Tienda Mary</span>
-                    <span class="text-xs text-gray-500">Gestión de empleados y vacaciones</span>
-                </div>
+        {{-- Navbar tipo píldora centrada --}}
+        <header class="w-full flex justify-center pt-6 pb-4">
+            <div class="w-full max-w-4xl px-4">
+                <div class="flex items-center bg-gray-900 text-white rounded-full px-4 py-2 shadow-xl gap-6">
 
-                @auth
-                    <div class="flex items-center gap-4">
-                        <div class="text-right text-sm">
-                            <div class="font-semibold">{{ auth()->user()->usuario }}</div>
-                            <div class="text-gray-500 text-xs">{{ auth()->user()->rol }}</div>
-                        </div>
-                        <div class="w-9 h-9 rounded-full bg-indigo-500 text-white flex items-center justify-center text-sm font-bold">
+                    {{-- Avatar / logo izquierda --}}
+                    @auth
+                        <div class="flex items-center justify-center w-10 h-10 rounded-full bg-white text-gray-900 text-sm font-bold">
                             {{ strtoupper(substr(auth()->user()->usuario, 0, 1)) }}
                         </div>
-                    </div>
-                @endauth
-                @auth
-                    @if(auth()->user()->rol === 'ADMIN')
-                            <li><a href="{{ route('departamentos.index') }}">Departamentos</a></li>
-                            <li><a href="{{ route('puestos.index') }}">Puestos</a></li>
-                        @endif
-                @endauth
+                    @else
+                        <div class="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 text-xs font-semibold">
+                            TM
+                        </div>
+                    @endauth
 
-                <form action="{{ route('logout') }}" method="POST">
-                    @csrf
-                    <button type="submit">Cerrar sesión</button>
-                </form>
+                    {{-- Menú central --}}
+                    <nav class="flex-1">
+                        <ul class="flex items-center gap-6 text-sm">
+                            <li>
+                                <a href="{{ route('dashboard') }}"
+                                class="hover:text-gray-200 transition-colors">
+                                    Dashboard
+                                </a>
+                            </li>
 
+                            @auth
+                                @if(auth()->user()->rol === 'ADMIN')
+                                    <li>
+                                        <a href="{{ route('departamentos.index') }}"
+                                        class="hover:text-gray-200 transition-colors">
+                                            Departamentos
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('puestos.index') }}"
+                                        class="hover:text-gray-200 transition-colors">
+                                            Puestos
+                                        </a>
+                                    </li>
+                                @endif
+
+                                {{-- Aquí puedes agregar más enlaces según rol --}}
+                                {{-- @if(auth()->user()->rol === 'EMPLEADO') ... @endif --}}
+                            @endauth
+                        </ul>
+                    </nav>
+
+                    {{-- Pill derecha con usuario + botón salir --}}
+                    @auth
+                        <div class="flex items-center gap-3">
+                            {{-- pill blanca tipo correo de la imagen --}}
+                            <div class="bg-white text-gray-900 rounded-full px-3 py-1 text-xs font-medium whitespace-nowrap">
+                                {{ auth()->user()->email ?? auth()->user()->usuario }}
+                            </div>
+
+                            <form action="{{ route('logout') }}" method="POST" class="m-0">
+                                @csrf
+                                <button type="submit"
+                                        class="text-xs text-gray-300 hover:text-white transition-colors">
+                                    Cerrar sesión
+                                </button>
+                            </form>
+                        </div>
+                    @endauth
+
+                </div>
             </div>
         </header>
+
 
         <main class="flex-1">
             @yield('content')
