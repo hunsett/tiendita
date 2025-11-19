@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Iniciar sesión — Tiendita</title>
   @vite('resources/css/app.css')
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 <body class="min-h-screen flex items-center justify-center bg-gray-50">
   <div class="w-full max-w-sm bg-white p-6 rounded-xl shadow">
@@ -37,5 +39,22 @@
       </button>
     </form>
   </div>
+
+  @if (session('success'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            Swal.fire({
+                title: '¡COMPLETADO!',
+                text: {!! json_encode(session('success')) !!},
+                icon: 'success',
+                timer: 2000,
+                timerProgressBar: true,
+                showConfirmButton: false,
+                position: 'top-end',
+                toast: true,
+            });
+        });
+    </script>
+@endif
 </body>
 </html>

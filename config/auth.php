@@ -15,7 +15,7 @@ return [
 
     'defaults' => [
     'guard' => 'web',
-    'passwords' => 'users',
+    'passwords' => 'usuarios',
 ],
 
     /*
@@ -38,7 +38,7 @@ return [
     'guards' => [
     'web' => [
         'driver' => 'session',
-        'provider' => 'users',
+        'provider' => 'usuarios',
     ],
 
     'api' => [
@@ -66,7 +66,7 @@ return [
     */
 
 'providers' => [
-    'users' => [
+    'usuarios' => [
         'driver' => 'eloquent',
         'model' => App\Models\Usuario::class, // 👈 AQUÍ EL CAMBIO
     ],
@@ -93,8 +93,8 @@ return [
 
     'passwords' => [
         'users' => [
-            'provider' => 'users',
-            'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
+            'provider' => 'usuarios',
+            'table' => env('password_resets'),
             'expire' => 60,
             'throttle' => 60,
         ],
