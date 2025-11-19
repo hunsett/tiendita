@@ -3,6 +3,9 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SolicitudVacacionesController;
+use App\Http\Controllers\DepartamentoController;
+use App\Http\Controllers\PuestoController;
+
 
 // Estos los usarás cuando vayas creando los módulos
 use App\Http\Controllers\UsuarioController;
@@ -51,6 +54,8 @@ Route::middleware('auth')->group(function () {
     Route::middleware('role:ADMIN')->group(function () {
         // Cuando tengas este módulo:
         Route::resource('usuarios', UsuarioController::class);
+        Route::resource('departamentos', DepartamentoController::class)->except(['show']);
+        Route::resource('puestos', PuestoController::class)->except(['show']);
         // Otros módulos exclusivos de ADMIN...
     });
 

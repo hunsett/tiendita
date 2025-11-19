@@ -29,6 +29,13 @@
                         </div>
                     </div>
                 @endauth
+                @auth
+                    @if(auth()->user()->rol === 'ADMIN')
+                            <li><a href="{{ route('departamentos.index') }}">Departamentos</a></li>
+                            <li><a href="{{ route('puestos.index') }}">Puestos</a></li>
+                        @endif
+                @endauth
+
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
                     <button type="submit">Cerrar sesión</button>
