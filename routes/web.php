@@ -67,6 +67,10 @@ Route::middleware('auth')->group(function () {
     Route::middleware('role:RH')->group(function () {
         // Cuando tengas estos módulos:
         Route::resource('empleados', EmpleadoController::class);
+        // Activar / desactivar empleado
+        Route::patch('/empleados/{empleado}/toggle-estado', [EmpleadoController::class, 'toggleEstado'])
+            ->name('empleados.toggle-estado');
+
         Route::resource('vacaciones', VacacionController::class)->only(['index', 'update']);
         // Otros para RH...
     });

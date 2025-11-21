@@ -15,11 +15,27 @@ class Empleado extends Model
     protected $keyType = 'int';
 
     protected $fillable = [
-        'codigo','nombre','apellidos','fecha_nacimiento','curp','rfc','nss',
-        'correo','telefono','fecha_ingreso','estado','id_departamento','id_puesto'
+        'codigo',
+        'nombre',
+        'apellidos',
+        'fecha_nacimiento',
+        'curp',
+        'rfc',
+        'nss',
+        'correo',
+        'telefono',
+        'fecha_ingreso',
+        'estado',
+        'id_departamento',
+        'id_puesto'
     ];
 
-     public function departamento()
+    protected $casts = [
+        'fecha_nacimiento' => 'date',
+        'fecha_ingreso'    => 'date',
+    ];
+
+    public function departamento()
     {
         return $this->belongsTo(Departamento::class, 'id_departamento', 'id_departamento');
     }

@@ -54,6 +54,14 @@
 
                                 {{-- Aquí puedes agregar más enlaces según rol --}}
                                 {{-- @if(auth()->user()->rol === 'EMPLEADO') ... @endif --}}
+                                @if(in_array(auth()->user()->rol, ['RH']))
+
+                                    {{-- 👇 Nuevo botón para el módulo Empleados --}}
+                                    <a href="{{ route('empleados.index') }}"
+                                    class="inline-flex items-center px-3 py-1.5 rounded-full bg-white/90 text-slate-900 font-semibold text-xs shadow hover:bg-white">
+                                        Empleados
+                                    </a>
+                                @endif
                             @endauth
                         </ul>
                     </nav>
