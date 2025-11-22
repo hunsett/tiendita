@@ -46,6 +46,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->name('dashboard');
 
+    //Para el cambio de contraseña por el propio usuario (cualquier rol autenticado)
+    Route::get('/mi-cuenta/password', [UsuarioController::class, 'editPasswordSelf'])
+        ->name('mi-cuenta.password.edit');
+
+    Route::patch('/mi-cuenta/password', [UsuarioController::class, 'updatePasswordSelf'])
+        ->name('mi-cuenta.password.update');
+
     /*
     |----------------------------------------------------------------------
     | Rutas solo ADMIN
@@ -54,6 +61,15 @@ Route::middleware('auth')->group(function () {
     Route::middleware('role:ADMIN')->group(function () {
         // Cuando tengas este módulo:
         Route::resource('usuarios', UsuarioController::class);
+        Route::patch('usuarios/{usuario}/toggle-estado', [UsuarioController::class, 'toggleEstado'])
+            ->name('usuarios.toggle-estado');
+
+        Route::get('usuarios/{usuario}/reset-password', [UsuarioController::class, 'editPassword'])
+            ->name('usuarios.password.edit');
+
+        Route::patch('usuarios/{usuario}/reset-password', [UsuarioController::class, 'updatePassword'])
+            ->name('usuarios.password.update');
+
         Route::resource('departamentos', DepartamentoController::class)->except(['show']);
         Route::resource('puestos', PuestoController::class)->except(['show']);
         // Otros módulos exclusivos de ADMIN...

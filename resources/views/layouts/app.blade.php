@@ -50,6 +50,12 @@
                                             Puestos
                                         </a>
                                     </li>
+                                    <li>
+                                        <a href="{{ route('usuarios.index') }}"
+                                        class="inline-flex items-center px-3 py-1.5 rounded-full bg-white/90 text-slate-900 font-semibold text-xs shadow hover:bg-white">
+                                            Usuarios
+                                        </a>
+                                    </li>
                                 @endif
 
                                 {{-- Aquí puedes agregar más enlaces según rol --}}
