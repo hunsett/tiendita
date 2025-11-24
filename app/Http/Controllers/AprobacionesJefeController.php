@@ -95,8 +95,8 @@ class AprobacionesJefeController extends Controller
     /** Aprobar / Rechazar con comentario */
     public function decidir($id, Request $request)
     {
-        $jefe = $this->getJefe();
-        $empleadoJefe = $jefe->empleado;
+        $jefe = $this->getJefe();          // método que ya tienes
+        $empleadoJefe = $jefe->empleado;   // empleado ligado al jefe
 
         $data = $request->validate([
             'accion'    => ['required', 'in:APRUEBA,RECHAZA'],
@@ -106,13 +106,15 @@ class AprobacionesJefeController extends Controller
             'accion.in'       => 'La acción no es válida.',
         ]);
 
+        // Si rechaza, comentario obligatorio
         if ($data['accion'] === 'RECHAZA' && empty($data['comentario'])) {
-            throw ValidationException::withMessages([
+            throw \Illuminate\Validation\ValidationException::withMessages([
                 'comentario' => 'Para rechazar, debes indicar un comentario.',
             ]);
         }
 
-        $solicitud = SolicitudVacaciones::with(['empleado', 'aprobaciones'])
+        // Solicitud debe estar PENDIENTE y pertenecer a su equipo (mismo departamento)
+        $solicitud = \App\Models\SolicitudVacaciones::with(['empleado', 'aprobaciones'])
             ->where('id_solicitud', $id)
             ->where('estado', 'PENDIENTE')
             ->whereHas('empleado', function ($q) use ($empleadoJefe) {
@@ -120,73 +122,49 @@ class AprobacionesJefeController extends Controller
             })
             ->firstOrFail();
 
-        // Verificar que este jefe no haya aprobado/rechazado antes (nivel 1)
-        $yaAprobo = $solicitud->aprobaciones()
+        // Verificar que este jefe no haya decidido antes (nivel 1)
+        $yaDecidioEsteJefe = $solicitud->aprobaciones()
             ->where('nivel', 1)
             ->where('id_usuario_aprobador', $jefe->id_usuario)
             ->exists();
 
-        if ($yaAprobo) {
-            throw ValidationException::withMessages([
+        if ($yaDecidioEsteJefe) {
+            throw \Illuminate\Validation\ValidationException::withMessages([
                 'accion' => 'Ya registraste una decisión sobre esta solicitud.',
             ]);
         }
 
         DB::transaction(function () use ($solicitud, $jefe, $data) {
 
-            // 1. Registrar la aprobación/rechazo
+            // 1. Registrar aprobación / rechazo de JEFE (nivel 1)
             Aprobacion::create([
-                'id_solicitud'       => $solicitud->id_solicitud,
-                'nivel'              => 1, // JEFE
+                'id_solicitud'         => $solicitud->id_solicitud,
+                'nivel'                => 1, // JEFE
                 'id_usuario_aprobador' => $jefe->id_usuario,
-                'accion'             => $data['accion'],
-                'comentario'         => $data['comentario'] ?? null,
-                'accion_en'          => now(),
+                'accion'               => $data['accion'],
+                'comentario'           => $data['comentario'] ?? null,
+                'accion_en'            => now(),
             ]);
 
-            // 2. Actualizar estado de la solicitud
-            if ($data['accion'] === 'APRUEBA') {
-                $this->aplicarSaldo($solicitud); // descuenta días
-                $solicitud->estado = 'APROBADA'; // aquí podrías dejar PENDIENTE para RH (nivel 2) si quisieras flujo de 2 niveles
-            } else {
-                $solicitud->estado = 'RECHAZADA';
+            // 2. Actualizar estado solo si RECHAZA
+            if ($data['accion'] === 'RECHAZA') {
+                // Rechazo definitivo: ya no pasa a RH
+                $solicitud->estado      = 'RECHAZADA';
+                $solicitud->decidida_en = now(); // decisión final
+                $solicitud->save();
             }
-
-            $solicitud->decidida_en = now();
-            $solicitud->save();
+            // Si APRUEBA:
+            // - La solicitud permanece en estado PENDIENTE
+            // - RH la verá en su bandeja (porque tiene nivel 1 = APRUEBA y aún no tiene nivel 2)
+            // - No tocamos 'decidida_en' ni saldo aquí
         });
 
         return redirect()
             ->route('jefe.aprobaciones.show', $solicitud->id_solicitud)
             ->with('success', $data['accion'] === 'APRUEBA'
-                ? 'Has aprobado la solicitud correctamente.'
-                : 'Has rechazado la solicitud.');
+                ? 'Has aprobado la solicitud. Ahora pasará al flujo de Recursos Humanos.'
+                : 'Has rechazado la solicitud. El proceso se ha dado por terminado.');
     }
 
     /** Descuenta los días del saldo del empleado al aprobar */
-    private function aplicarSaldo(SolicitudVacaciones $solicitud): void
-    {
-        $saldo = SaldoVacaciones::where('id_empleado', $solicitud->id_empleado)
-            ->where('periodo_inicio', '<=', $solicitud->fecha_inicio->toDateString())
-            ->where('periodo_fin', '>=', $solicitud->fecha_inicio->toDateString())
-            ->orderByDesc('periodo_inicio')
-            ->lockForUpdate()
-            ->first();
-
-        if (!$saldo) {
-            throw ValidationException::withMessages([
-                'accion' => 'No existe un saldo de vacaciones configurado para el colaborador en este periodo.',
-            ]);
-        }
-
-        if ($solicitud->dias_solicitados > $saldo->dias_disponibles) {
-            throw ValidationException::withMessages([
-                'accion' => 'El colaborador no tiene días suficientes. Disponibles: ' . $saldo->dias_disponibles,
-            ]);
-        }
-
-        $saldo->dias_usados       += $solicitud->dias_solicitados;
-        $saldo->dias_disponibles   = $saldo->dias_acumulados - $saldo->dias_usados;
-        $saldo->save();
-    }
 }

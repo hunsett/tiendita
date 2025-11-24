@@ -16,7 +16,7 @@
                     Detalle del empleado y su información básica en <span class="font-semibold">Tienda Mary</span>.
                 </p>
             </div>
-            <a href="{{ route('empleados.index') }}"
+            <a href="{{ route('rh.empleados.index') }}"
                class="text-xs text-slate-300 hover:text-white hover:underline mt-1">
                 ← Volver al listado
             </a>
@@ -53,12 +53,12 @@
                     </div>
 
                     <div class="flex items-center gap-2">
-                        <a href="{{ route('empleados.edit', $empleado) }}"
+                        <a href="{{ route('rh.empleados.edit', $empleado) }}"
                            class="inline-flex items-center px-3 py-1.5 rounded-full text-[11px] font-semibold bg-white/90 text-slate-900 hover:bg-white transition-colors shadow-sm">
                             Editar
                         </a>
 
-                        <form action="{{ route('empleados.toggle-estado', $empleado) }}" method="POST">
+                        <form action="{{ route('rh.empleados.toggle-estado', $empleado) }}" method="POST">
                             @csrf
                             @method('PATCH')
                             <button type="submit"

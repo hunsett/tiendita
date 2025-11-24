@@ -63,9 +63,15 @@
 
                                 @if(in_array(auth()->user()->rol, ['RH']))
                                     <li>
-                                        <a href="{{ route('empleados.index') }}"
+                                        <a href="{{ route('rh.empleados.index') }}"
                                            class="inline-flex items-center px-3 py-1.5 rounded-full bg-white/90 text-slate-900 font-semibold text-xs shadow hover:bg-white">
                                             Empleados
+                                        </a>
+                                    </li>
+                                     <li>
+                                        <a href="{{ route('rh.aprobaciones.index') }}"
+                                        class="hover:text-gray-200 transition-colors text-xs md:text-sm">
+                                            Aprobaciones RH
                                         </a>
                                     </li>
                                 @endif

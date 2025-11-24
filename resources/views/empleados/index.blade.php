@@ -18,7 +18,7 @@
                 </p>
             </div>
 
-            <a href="{{ route('empleados.create') }}"
+            <a href="{{ route('rh.empleados.create') }}"
                class="inline-flex items-center px-5 py-2.5 rounded-full bg-white/90 text-slate-900 text-sm font-semibold shadow-lg hover:bg-white hover:-translate-y-0.5 transition-all">
                 + Nuevo empleado
             </a>
@@ -58,7 +58,7 @@
                     </div>
 
                     {{-- Filtros --}}
-                    <form method="GET" action="{{ route('empleados.index') }}" class="grid grid-cols-1 md:grid-cols-4 gap-3 text-[11px]">
+                    <form method="GET" action="{{ route('rh.empleados.index') }}" class="grid grid-cols-1 md:grid-cols-4 gap-3 text-[11px]">
                         <div>
                             <label class="block mb-1 text-slate-100/80 uppercase tracking-[0.18em]">
                                 Búsqueda
@@ -121,7 +121,7 @@
                         </div>
 
                         <div class="md:col-span-4 flex items-center justify-end gap-2 pt-1">
-                            <a href="{{ route('empleados.index') }}"
+                            <a href="{{ route('rh.empleados.index') }}"
                                class="inline-flex items-center px-3 py-2 rounded-full border border-white/30 text-[11px] font-medium text-slate-100 hover:bg-black/40 transition-all">
                                 Limpiar filtros
                             </a>
@@ -154,7 +154,7 @@
                                             {{ $empleado->codigo ?? '—' }}
                                         </td>
                                         <td class="px-6 py-3 text-sm font-medium text-white">
-                                            <a href="{{ route('empleados.show', $empleado) }}"
+                                            <a href="{{ route('rh.empleados.show', $empleado) }}"
                                                class="hover:underline">
                                                 {{ $empleado->nombre }} {{ $empleado->apellidos }}
                                             </a>
@@ -180,12 +180,12 @@
                                         </td>
                                         <td class="px-6 py-3">
                                             <div class="flex items-center justify-end gap-2">
-                                                <a href="{{ route('empleados.edit', $empleado) }}"
+                                                <a href="{{ route('rh.empleados.edit', $empleado) }}"
                                                    class="inline-flex items-center px-3 py-1.5 rounded-full text-[11px] font-semibold bg-white/90 text-slate-900 hover:bg-white transition-colors shadow-sm">
                                                     Editar
                                                 </a>
 
-                                                <form action="{{ route('empleados.toggle-estado', $empleado) }}"
+                                                <form action="{{ route('rh.empleados.toggle-estado', $empleado) }}"
                                                       method="POST">
                                                     @csrf
                                                     @method('PATCH')
@@ -231,7 +231,7 @@
                     <div class="px-6 py-10 text-center text-sm text-slate-100/90">
                         No hay empleados registrados todavía.
                         <div class="mt-3">
-                            <a href="{{ route('empleados.create') }}"
+                            <a href="{{ route('rh.empleados.create') }}"
                                class="inline-flex items-center px-4 py-2 rounded-full bg-white/90 text-slate-900 text-xs font-semibold shadow hover:bg-white transition-colors">
                                 Crear el primer empleado
                             </a>

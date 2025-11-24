@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AprobacionesJefeController;
+use App\Http\Controllers\AprobacionesRhController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SolicitudVacacionesController;
@@ -82,16 +83,24 @@ Route::middleware('auth')->group(function () {
     | Rutas solo RH
     |----------------------------------------------------------------------
     */
-    Route::middleware('role:RH')->group(function () {
-        // Cuando tengas estos módulos:
-        Route::resource('empleados', EmpleadoController::class);
-        // Activar / desactivar empleado
-        Route::patch('/empleados/{empleado}/toggle-estado', [EmpleadoController::class, 'toggleEstado'])
-            ->name('empleados.toggle-estado');
+    Route::middleware(['web', 'auth', 'role:RH'])
+        ->prefix('rh')
+        ->name('rh.')
+        ->group(function () {
 
-        Route::resource('vacaciones', VacacionController::class)->only(['index', 'update']);
-        // Otros para RH...
-    });
+            Route::resource('empleados', EmpleadoController::class);
+            // Activar / desactivar empleado
+            Route::patch('/empleados/{empleado}/toggle-estado', [EmpleadoController::class, 'toggleEstado'])
+                ->name('empleados.toggle-estado');
+            Route::get('/aprobaciones', [AprobacionesRhController::class, 'index'])
+                ->name('aprobaciones.index');
+
+            Route::get('/aprobaciones/{id}', [AprobacionesRhController::class, 'show'])
+                ->name('aprobaciones.show');
+
+            Route::post('/aprobaciones/{id}/decidir', [AprobacionesRhController::class, 'decidir'])
+                ->name('aprobaciones.decidir');
+        });
 
     /*
     |----------------------------------------------------------------------

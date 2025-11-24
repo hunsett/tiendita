@@ -15,7 +15,7 @@
                     Actualiza la información del empleado en <span class="font-semibold">Tienda Mary</span>.
                 </p>
             </div>
-            <a href="{{ route('empleados.index') }}"
+            <a href="{{ route('rh.empleados.index') }}"
                class="text-xs text-slate-300 hover:text-white hover:underline mt-1">
                 ← Volver al listado
             </a>
@@ -28,7 +28,7 @@
             <div class="absolute inset-0 backdrop-blur-2xl"></div>
 
             <div class="relative px-6 py-7 text-slate-50">
-                <form action="{{ route('empleados.update', $empleado) }}" method="POST" class="space-y-4">
+                <form action="{{ route('rh.empleados.update', $empleado) }}" method="POST" class="space-y-4">
                     @csrf
                     @method('PUT')
 
@@ -242,7 +242,7 @@
 
                     {{-- Botones --}}
                     <div class="flex items-center justify-end gap-3 pt-2">
-                        <a href="{{ route('empleados.index') }}"
+                        <a href="{{ route('rh.empleados.index') }}"
                            class="inline-flex items-center px-3 py-2 rounded-full border border-white/30 text-[11px] font-medium text-slate-100 hover:bg-black/40 transition-all">
                             Cancelar
                         </a>
