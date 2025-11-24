@@ -42,8 +42,8 @@
                        class="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 text-white text-xs md:text-sm font-semibold shadow-md hover:shadow-lg hover:brightness-110 transition-all">
                         Nueva solicitud de vacaciones
                     </a>
-                @elseif(in_array($rol, ['ADMIN','RH','JEFE']))
-                    <a href="#"
+                @elseif(in_array($rol, ['JEFE']))
+                    <a href="{{ route('jefe.aprobaciones.index') }}"
                        class="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-cyan-500 to-emerald-500 text-white text-xs md:text-sm font-semibold shadow-md hover:shadow-lg hover:brightness-110 transition-all">
                         Ver solicitudes pendientes
                     </a>

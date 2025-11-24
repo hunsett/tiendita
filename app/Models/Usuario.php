@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Usuario extends Authenticatable
 {
     //
-use Notifiable, HasFactory;
+    use Notifiable, HasFactory;
 
     protected $table = 'usuarios';
     protected $primaryKey = 'id_usuario';
@@ -19,7 +19,13 @@ use Notifiable, HasFactory;
     public $timestamps = true;
 
     protected $fillable = [
-        'id_empleado', 'usuario', 'correo_sistema', 'contrasenia_hash', 'rol', 'estado', 'ultimo_acceso',
+        'id_empleado',
+        'usuario',
+        'correo_sistema',
+        'contrasenia_hash',
+        'rol',
+        'estado',
+        'ultimo_acceso',
     ];
 
     protected $hidden = ['contrasenia_hash', 'remember_token'];
@@ -43,6 +49,12 @@ use Notifiable, HasFactory;
         $this->attributes['contrasenia_hash'] = Hash::needsRehash($value) ? Hash::make($value) : $value;
     }
 
-    public function empleado(){return $this->belongsTo(Empleado::class, 'id_empleado','id_empleado');}
-    public function aprobaciones(){ return $this->hasMany(Aprobacion::class, 'id_usuario_aprobador'); }
+    public function empleado()
+    {
+        return $this->belongsTo(Empleado::class, 'id_empleado', 'id_empleado');
+    }
+    public function aprobaciones()
+    {
+        return $this->hasMany(Aprobacion::class, 'id_usuario_aprobador', 'id_usuario');
+    }
 }

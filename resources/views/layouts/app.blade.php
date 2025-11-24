@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    {{-- 👇 Aquí inyectamos los estilos específicos de cada vista (gradient glass, etc.) --}}
+    @yield('styles')
 </head>
 <body class="bg-gray-100 text-gray-900">
     <div class="min-h-screen flex flex-col">
@@ -31,7 +34,7 @@
                         <ul class="flex items-center gap-6 text-sm">
                             <li>
                                 <a href="{{ route('dashboard') }}"
-                                class="hover:text-gray-200 transition-colors">
+                                   class="hover:text-gray-200 transition-colors">
                                     Dashboard
                                 </a>
                             </li>
@@ -40,33 +43,31 @@
                                 @if(auth()->user()->rol === 'ADMIN')
                                     <li>
                                         <a href="{{ route('departamentos.index') }}"
-                                        class="hover:text-gray-200 transition-colors">
+                                           class="hover:text-gray-200 transition-colors">
                                             Departamentos
                                         </a>
                                     </li>
                                     <li>
                                         <a href="{{ route('puestos.index') }}"
-                                        class="hover:text-gray-200 transition-colors">
+                                           class="hover:text-gray-200 transition-colors">
                                             Puestos
                                         </a>
                                     </li>
                                     <li>
                                         <a href="{{ route('usuarios.index') }}"
-                                        class="inline-flex items-center px-3 py-1.5 rounded-full bg-white/90 text-slate-900 font-semibold text-xs shadow hover:bg-white">
+                                           class="inline-flex items-center px-3 py-1.5 rounded-full bg-white/90 text-slate-900 font-semibold text-xs shadow hover:bg-white">
                                             Usuarios
                                         </a>
                                     </li>
                                 @endif
 
-                                {{-- Aquí puedes agregar más enlaces según rol --}}
-                                {{-- @if(auth()->user()->rol === 'EMPLEADO') ... @endif --}}
                                 @if(in_array(auth()->user()->rol, ['RH']))
-
-                                    {{-- 👇 Nuevo botón para el módulo Empleados --}}
-                                    <a href="{{ route('empleados.index') }}"
-                                    class="inline-flex items-center px-3 py-1.5 rounded-full bg-white/90 text-slate-900 font-semibold text-xs shadow hover:bg-white">
-                                        Empleados
-                                    </a>
+                                    <li>
+                                        <a href="{{ route('empleados.index') }}"
+                                           class="inline-flex items-center px-3 py-1.5 rounded-full bg-white/90 text-slate-900 font-semibold text-xs shadow hover:bg-white">
+                                            Empleados
+                                        </a>
+                                    </li>
                                 @endif
                             @endauth
                         </ul>
@@ -75,9 +76,8 @@
                     {{-- Pill derecha con usuario + botón salir --}}
                     @auth
                         <div class="flex items-center gap-3">
-                            {{-- pill blanca tipo correo de la imagen --}}
                             <div class="bg-white text-gray-900 rounded-full px-3 py-1 text-xs font-medium whitespace-nowrap">
-                                {{ auth()->user()->email ?? auth()->user()->usuario }}
+                                {{ auth()->user()->correo_sistema ?? auth()->user()->usuario }}
                             </div>
 
                             <form action="{{ route('logout') }}" method="POST" class="m-0">
@@ -93,7 +93,6 @@
                 </div>
             </div>
         </header>
-
 
         <main class="flex-1">
             @yield('content')

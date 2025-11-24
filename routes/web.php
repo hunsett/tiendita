@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AprobacionesJefeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SolicitudVacacionesController;
@@ -97,14 +98,28 @@ Route::middleware('auth')->group(function () {
     | Rutas solo JEFE
     |----------------------------------------------------------------------
     */
-    Route::middleware('role:JEFE')->group(function () {
-        // Ejemplos de aprobación de vacaciones
-        Route::get('/vacaciones/pendientes', [VacacionController::class, 'pendientes'])
-            ->name('vacaciones.pendientes');
+    Route::middleware(['web', 'auth', 'role:JEFE'])
+        ->prefix('jefe')
+        ->name('jefe.')
+        ->group(function () {
 
-        Route::post('/vacaciones/{vacacion}/aprobar', [VacacionController::class, 'aprobar'])
-            ->name('vacaciones.aprobar');
-    });
+            // Vacaciones (si las quieres conservar)
+            Route::get('/vacaciones/pendientes', [VacacionController::class, 'pendientes'])
+                ->name('vacaciones.pendientes');
+
+            Route::post('/vacaciones/{vacacion}/aprobar', [VacacionController::class, 'aprobar'])
+                ->name('vacaciones.aprobar');
+
+            // Aprobaciones de vacaciones (bandeja del jefe)
+            Route::get('/aprobaciones', [AprobacionesJefeController::class, 'index'])
+                ->name('aprobaciones.index');
+
+            Route::get('/aprobaciones/{id}', [AprobacionesJefeController::class, 'show'])
+                ->name('aprobaciones.show');
+
+            Route::post('/aprobaciones/{id}/decidir', [AprobacionesJefeController::class, 'decidir'])
+                ->name('aprobaciones.decidir');
+        });
 
     /*
     |----------------------------------------------------------------------
