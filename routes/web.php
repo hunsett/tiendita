@@ -10,6 +10,7 @@ use App\Http\Controllers\PuestoController;
 // Estos los usarás cuando vayas creando los módulos
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\EmpleadoController;
+use App\Http\Controllers\SolicitudVacacionesEmpleadoController;
 use App\Http\Controllers\VacacionController;
 use Illuminate\Support\Facades\Route;
 
@@ -123,6 +124,24 @@ Route::middleware('auth')->group(function () {
         // 💾 Guardar solicitud de vacaciones (lo que ya tienes)
         Route::post('/vacaciones/solicitudes', [SolicitudVacacionesController::class, 'store'])
             ->name('vacaciones.solicitudes.store');
+
+        Route::get('/mis-solicitudes', [SolicitudVacacionesEmpleadoController::class, 'index'])
+            ->name('index');
+
+        Route::get('/mis-solicitudes/nueva', [SolicitudVacacionesEmpleadoController::class, 'create'])
+            ->name('create');
+
+        Route::post('/mis-solicitudes', [SolicitudVacacionesEmpleadoController::class, 'store'])
+            ->name('store');
+
+        Route::get('/mis-solicitudes/{id}', [SolicitudVacacionesEmpleadoController::class, 'show'])
+            ->name('show');
+
+        Route::post('/mis-solicitudes/{id}/enviar', [SolicitudVacacionesEmpleadoController::class, 'enviar'])
+            ->name('enviar');
+
+        Route::post('/mis-solicitudes/{id}/cancelar', [SolicitudVacacionesEmpleadoController::class, 'cancelar'])
+            ->name('cancelar');
     });
 
     /*
