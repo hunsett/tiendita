@@ -81,6 +81,12 @@
                                             Saldos de vacaciones
                                         </a>
                                     </li>
+                                    <li>
+                                        <a href="{{ route('rh.festivos.index') }}"
+                                        class="hover:text-gray-200 transition-colors text-xs md:text-sm">
+                                            Días festivos
+                                        </a>
+                                    </li>
                                 @endif
                             @endauth
                         </ul>

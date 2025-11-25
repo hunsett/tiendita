@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SolicitudVacacionesController;
 use App\Http\Controllers\DepartamentoController;
+use App\Http\Controllers\DiasFestivosController;
 use App\Http\Controllers\PuestoController;
 
 
@@ -110,6 +111,10 @@ Route::middleware('auth')->group(function () {
 
             Route::post('/saldos/generar', [SaldosVacacionesController::class, 'generarPeriodos'])
                 ->name('saldos.generar');
+
+            Route::resource('festivos', DiasFestivosController::class)
+                ->names('festivos')
+                ->except(['show']);
         });
 
     /*
