@@ -74,6 +74,13 @@
                                             Aprobaciones RH
                                         </a>
                                     </li>
+                                    {{-- Link a saldos de vacaciones --}}
+                                    <li>
+                                        <a href="{{ route('rh.saldos.index') }}"
+                                        class="hover:text-gray-200 transition-colors text-xs md:text-sm">
+                                            Saldos de vacaciones
+                                        </a>
+                                    </li>
                                 @endif
                             @endauth
                         </ul>

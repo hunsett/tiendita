@@ -12,6 +12,7 @@ use App\Http\Controllers\PuestoController;
 // Estos los usarás cuando vayas creando los módulos
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\EmpleadoController;
+use App\Http\Controllers\SaldosVacacionesController;
 use App\Http\Controllers\SolicitudVacacionesEmpleadoController;
 use App\Http\Controllers\VacacionController;
 use Illuminate\Support\Facades\Route;
@@ -100,6 +101,15 @@ Route::middleware('auth')->group(function () {
 
             Route::post('/aprobaciones/{id}/decidir', [AprobacionesRhController::class, 'decidir'])
                 ->name('aprobaciones.decidir');
+
+            Route::get('/saldos', [SaldosVacacionesController::class, 'index'])
+                ->name('saldos.index');
+
+            Route::get('/saldos/empleado/{id_empleado}', [SaldosVacacionesController::class, 'show'])
+                ->name('saldos.show');
+
+            Route::post('/saldos/generar', [SaldosVacacionesController::class, 'generarPeriodos'])
+                ->name('saldos.generar');
         });
 
     /*
