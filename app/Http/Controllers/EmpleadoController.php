@@ -52,7 +52,7 @@ class EmpleadoController extends Controller
         $departamentos = Departamento::orderBy('nombre')->get();
         $puestos       = Puesto::orderBy('nombre')->get();
 
-        return view('empleados.index', compact(
+        return view('rh.empleados.index', compact(
             'empleados',
             'departamentos',
             'puestos',
@@ -68,7 +68,7 @@ class EmpleadoController extends Controller
         $departamentos = Departamento::orderBy('nombre')->get();
         $puestos       = Puesto::orderBy('nombre')->get();
 
-        return view('empleados.create', compact('departamentos', 'puestos'));
+        return view('rh.empleados.create', compact('departamentos', 'puestos'));
     }
 
     public function store(EmpleadoStoreRequest $request)
@@ -76,7 +76,7 @@ class EmpleadoController extends Controller
         Empleado::create($request->validated());
 
         return redirect()
-            ->route('empleados.index')
+            ->route('rh.empleados.index')
             ->with('success', 'Empleado creado correctamente.');
     }
 
@@ -84,7 +84,7 @@ class EmpleadoController extends Controller
     {
         $empleado->load(['departamento', 'puesto', 'usuario']);
 
-        return view('empleados.show', compact('empleado'));
+        return view('rh.empleados.show', compact('empleado'));
     }
 
     public function edit(Empleado $empleado)
@@ -92,7 +92,7 @@ class EmpleadoController extends Controller
         $departamentos = Departamento::orderBy('nombre')->get();
         $puestos       = Puesto::orderBy('nombre')->get();
 
-        return view('empleados.edit', compact('empleado', 'departamentos', 'puestos'));
+        return view('rh.empleados.edit', compact('empleado', 'departamentos', 'puestos'));
     }
 
     public function update(EmpleadoUpdateRequest $request, Empleado $empleado)
@@ -100,7 +100,7 @@ class EmpleadoController extends Controller
         $empleado->update($request->validated());
 
         return redirect()
-            ->route('empleados.index')
+            ->route('rh.empleados.index')
             ->with('success', 'Empleado actualizado correctamente.');
     }
 
@@ -110,7 +110,7 @@ class EmpleadoController extends Controller
         $empleado->delete();
 
         return redirect()
-            ->route('empleados.index')
+            ->route('rh.empleados.index')
             ->with('success', 'Empleado eliminado correctamente.');
     }
 

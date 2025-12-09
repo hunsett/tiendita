@@ -22,12 +22,12 @@ class AuthController extends Controller
         $login = $request->input('login');
         $password = $request->input('password');
 
-        // Buscar por usuario O por correo_sistema
+        // Buscar por usuario o por correo_sistema
         $user = Usuario::where('usuario', $login)
             ->orWhere('correo_sistema', $login)
             ->first();
 
-        // Mensaje genérico para no revelar si existe o no
+        // Mensaje ambiguo para no revelar si existe o no
         $error = 'Credenciales inválidas.';
 
         if (!$user) {
@@ -49,10 +49,10 @@ class AuthController extends Controller
         // Regenerar sesión contra fixation
         $request->session()->regenerate();
 
-         // 👇 DEBUG AQUÍ
+        // 👇 DEBUG AQUÍ
         //dd('DESPUÉS DE LOGIN', Auth::user(), Auth::check(), session()->all());
 
-        
+
 
         // Actualizar último acceso
         $user->ultimo_acceso = now();
@@ -68,6 +68,5 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
 
         return redirect()->route('login')->with('success', 'Sesión cerrada correctamente.');
+    }
 }
-}
-

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Iniciar sesión — Tiendita</title>
+  <title>Iniciar sesión</title>
   @vite('resources/css/app.css')
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -173,7 +173,7 @@
           </div>
 
           <div class="tracking-[0.4em] text-sm text-[#fce6cf]">
-            L U N A
+            Tienda MARY
           </div>
         </div>
       </div>
@@ -185,7 +185,7 @@
         <div class="absolute -bottom-10 right-16 w-16 h-16 bg-white/70 rounded-full blur-[1px] opacity-70"></div>
 
         <div>
-          <h1 class="text-2xl font-semibold tracking-wide mb-2">Welcome back</h1>
+          <h1 class="text-2xl font-semibold tracking-wide mb-2">BIENVENID@</h1>
           <p class="text-sm text-white/80">Inicia sesión para continuar</p>
         </div>
 
@@ -194,7 +194,7 @@
 
           <div>
             <label class="block text-sm tracking-wide mb-1 text-white/80">
-              Username
+              USUARIO
             </label>
             <input
               type="text"
@@ -208,7 +208,7 @@
 
           <div>
             <label class="block text-sm tracking-wide mb-1 text-white/80">
-              Password
+              CONTRASEÑA
             </label>
             <input
               type="password"
@@ -223,20 +223,20 @@
               <button
                 type="submit"
                 class="btn-glow px-6 py-2 text-sm rounded-full border border-white/80 hover:bg:white/10 transition">
-                Sing In
+                ENTRAR
               </button>
 
               <a
                 href="#"
                 class="btn-glow px-6 py-2 text-sm rounded-full border border-white/80 hover:bg:white/10 transition inline-flex items-center justify-center">
-                Sing Up
+                SALIR
               </a>
             </div>
           </div>
 
           <div class="pt-2">
             <a href="#" class="text-xs text-white/80 hover:text-white underline-offset-4">
-              Forgot password?
+              ¿Olvidaste tu contraseña?
             </a>
           </div>
         </form>
