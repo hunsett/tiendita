@@ -147,10 +147,13 @@
                                             {{ $saldo->periodo_fin->format('d/m/Y') }}
                                         </td>
                                         <td class="px-6 py-3 text-xs text-right text-slate-100/90">
-                                            {{ $saldo->dias_acumulados }}
+                                            {{ $saldo->dias_acumulados == intval($saldo->dias_acumulados) 
+                                            ? intval($saldo->dias_acumulados) 
+                                            : $saldo->dias_acumulados }}
                                         </td>
                                         <td class="px-6 py-3 text-xs text-right text-slate-100/90">
-                                            {{ $saldo->dias_usados }}
+                                            {{ $saldo->dias_usados == intval($saldo->dias_usados)
+                                            ? intval($saldo->dias_usados) : $saldo->dias_usados}}
                                         </td>
                                         <td class="px-6 py-3 text-xs text-right">
                                             <span class="inline-flex items-center px-2 py-1 rounded-full
@@ -159,7 +162,7 @@
                                                     'bg-rose-500/95 text-white font-semibold' => $saldo->dias_disponibles <= 0,
                                                 ])
                                             ">
-                                                {{ $saldo->dias_disponibles }}
+                                                {{ $saldo->dias_disponibles == intval($saldo->dias_disponibles) ? intval($saldo->dias_disponibles):$saldo->dias_disponibles}}
                                             </span>
                                         </td>
                                         <td class="px-6 py-3 text-right">

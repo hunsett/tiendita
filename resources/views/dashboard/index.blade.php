@@ -88,7 +88,7 @@
 
                     @if($saldoActual)
                         <div class="mt-2 text-2xl font-extrabold">
-                            {{ number_format($saldoActual->dias_disponibles, 1) }} días
+                            {{ number_format($saldoActual->dias_disponibles, 0) }} días disponibles
                         </div>
                         <p class="mt-1 text-[11px] text-white/80">
                             Periodo:
@@ -486,19 +486,19 @@
                             <div class="flex justify-between">
                                 <dt class="text-slate-500">Días acumulados</dt>
                                 <dd class="font-semibold text-slate-900">
-                                    {{ number_format($saldoActual->dias_acumulados, 1) }}
+                                    {{ number_format($saldoActual->dias_acumulados, 0) }}
                                 </dd>
                             </div>
                             <div class="flex justify-between">
                                 <dt class="text-slate-500">Días usados</dt>
                                 <dd class="font-semibold text-slate-900">
-                                    {{ number_format($saldoActual->dias_usados, 1) }}
+                                    {{ number_format($saldoActual->dias_usados, 0) }}
                                 </dd>
                             </div>
                             <div class="flex justify-between">
                                 <dt class="text-slate-500">Días disponibles</dt>
                                 <dd class="font-semibold text-emerald-600">
-                                    {{ number_format($saldoActual->dias_disponibles, 1) }}
+                                    {{ number_format($saldoActual->dias_disponibles, 0) }}
                                 </dd>
                             </div>
                         </dl>
