@@ -537,7 +537,7 @@
                     </ul>
                 </div>
 
-                {{-- Mensaje / tips --}}
+                {{-- Mensaje / tips 
                 <div class="rounded-2xl border border-emerald-100 bg-gradient-to-br from-emerald-50 via-cyan-50 to-white px-4 py-4 text-[11px] text-emerald-900 shadow-sm">
                     <p class="font-semibold flex items-center gap-1">
                         <span>💡 Tip</span>
@@ -548,7 +548,7 @@
                         de <span class="font-semibold">Tienda Mary</span> va quedando nivel empresa grande, rey. 💚
                     </p>
                 </div>
-
+                --}}
             </div>
         </div>
     </div>
