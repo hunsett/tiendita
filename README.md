@@ -233,25 +233,6 @@ tests/
 
 ## Screenshots
 
-Create the following directory:
-
-```text
-docs/images/
-```
-
-Add sanitized screenshots using demonstration data:
-
-```text
-docs/images/login.png
-docs/images/dashboard.png
-docs/images/employees.png
-docs/images/vacation-request.png
-docs/images/manager-approval.png
-docs/images/hr-approval.png
-```
-
-Then display them in this section:
-
 ### Login
 
 ![Login](docs/images/login.png)
@@ -295,5 +276,5 @@ The public version is intended to demonstrate the application's architecture, ro
 **Juan de Jesús Álvarez**
 
 - GitHub: [@hunsett](https://github.com/hunsett)
-- LinkedIn: [Juan de Jesús Álvarez](https://www.linkedin.com/in/juan-de-jesus-alvarez-35419129a)
+- LinkedIn: [Juan de Jesús Álvarez](https://www.linkedin.com/in/juan-alvarez-dev99)
 - Email: [alvarezjesus9901@gmail.com](mailto:alvarezjesus9901@gmail.com)
