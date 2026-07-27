@@ -114,7 +114,7 @@ Before installing the project, make sure you have:
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/hunsett/tiendita.git
+git clone https://github.com/hunsett/mary-employee-vacation-manager.git
 cd tiendita
 ```
 
