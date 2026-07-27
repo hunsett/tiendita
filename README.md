@@ -1,61 +1,299 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Mary Store Employee & Vacation Management System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A web application for centralizing employee records and managing vacation requests through a two-level approval workflow.
 
-## About Laravel
+![PHP](https://img.shields.io/badge/PHP-8.2-777BB4?style=flat-square&logo=php&logoColor=white)
+![Laravel](https://img.shields.io/badge/Laravel-12-FF2D20?style=flat-square&logo=laravel&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?style=flat-square&logo=mysql&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-7-646CFF?style=flat-square&logo=vite&logoColor=white)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+<!--
+Add a sanitized application screenshot to:
+docs/images/dashboard.png
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Then remove the comment markers from the following line:
+![Application dashboard](docs/images/dashboard.png)
+-->
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Overview
 
-## Learning Laravel
+This project was developed to support the administrative processes of Mary Store, a retail business located in Puebla, Mexico.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+The previous workflow relied on paper job application forms and manually managed employee information. This application digitizes that process by allowing authorized users to register, organize and maintain employee records from a computer.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Each employee can be associated with a department, job position, system account and vacation balance. Employees can submit vacation requests, which are reviewed through two approval levels:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+1. The employee's manager reviews the request.
+2. Human Resources performs the final review.
 
-## Laravel Sponsors
+The application centralizes employee information and provides a traceable workflow for managing vacation requests and decisions.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Main features
 
-### Premium Partners
+- Secure authentication using a username or system email.
+- Role-based access control.
+- Four system roles:
+  - Administrator
+  - Human Resources
+  - Manager
+  - Employee
+- Employee registration and record management.
+- Department and job-position management.
+- User account administration.
+- Individual vacation balance management.
+- Vacation request submission.
+- First-level approval by the employee's manager.
+- Final approval by Human Resources.
+- Vacation request status tracking.
+- Holiday calendar management.
+- Administrative dashboard.
+- Self-service password updates.
+- Login throttling to reduce repeated authentication attempts.
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## Vacation approval workflow
 
-## Contributing
+```mermaid
+flowchart LR
+    E["Employee"] -->|"Submits vacation request"| M["Manager review"]
+    M -->|"Approved"| HR["Human Resources review"]
+    M -->|"Rejected"| R["Request rejected"]
+    HR -->|"Approved"| A["Request approved"]
+    HR -->|"Rejected"| R
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## User roles
 
-## Code of Conduct
+| Role | Main responsibilities |
+|---|---|
+| Administrator | Manages users, employees, departments, job positions and system configuration. |
+| Human Resources | Reviews vacation requests at the final approval level and manages employee information. |
+| Manager | Reviews vacation requests submitted by employees under their supervision. |
+| Employee | Reviews personal information, checks the available vacation balance and submits vacation requests. |
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Tech stack
 
-## Security Vulnerabilities
+### Backend
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- PHP 8.2
+- Laravel 12
+- Laravel Blade
+- Eloquent ORM
+- Session-based authentication
+- PHPUnit 11
 
-## License
+### Frontend
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- Blade templates
+- Tailwind CSS 4
+- JavaScript
+- Axios
+- Vite 7
+
+### Database
+
+- MySQL 8.0+
+- Laravel migrations
+- Eloquent ORM
+- Database seeders with demonstration data
+
+## Requirements
+
+Before installing the project, make sure you have:
+
+- Git
+- PHP 8.2 or later
+- Composer 2
+- Node.js 20.19+ or 22.12+
+- npm
+- MySQL 8.0 or later
+- PHP PDO MySQL extension
+
+## Installation
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/hunsett/tiendita.git
+cd tiendita
+```
+
+### 2. Install PHP dependencies
+
+```bash
+composer install
+```
+
+### 3. Install frontend dependencies
+
+```bash
+npm install
+```
+
+### 4. Create the environment file
+
+The following command works without overwriting an existing `.env` file:
+
+```bash
+php -r "file_exists('.env') || copy('.env.example', '.env');"
+```
+
+### 5. Generate the application key
+
+```bash
+php artisan key:generate
+```
+### 6. Create the MySQL database
+
+Access MySQL and create a database for the application:
+
+```sql
+CREATE DATABASE tiendita
+    CHARACTER SET utf8mb4
+    COLLATE utf8mb4_unicode_ci;
+
+The default `.env.example` file is already configured to use SQLite:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=mary_employees
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+### 7. Run migrations and seeders
+
+```bash
+php artisan migrate --seed
+```
+
+This command creates the database structure and loads demonstration records for departments, job positions, employees, users, vacation balances and holidays.
+
+### 8. Start the development environment
+
+```bash
+composer run dev
+```
+
+This command starts the Laravel development server, Vite, the queue listener and the application log viewer.
+
+Open the application at:
+
+```text
+http://127.0.0.1:8000
+```
+
+## Demonstration accounts
+
+The database seeders include the following demonstration accounts.
+
+| Role | Username | System email | Password |
+|---|---|---|---|
+| Administrator | `admin` | `admin@mary.test` | `admin123` |
+| Human Resources | `rosa.rh` | `rosa.rh@mary.test` | `rh123456` |
+| Manager | `carlos.jefe` | `carlos.jefe@mary.test` | `jefe1234` |
+| Employee | `ana.empleada` | `ana.empleada@mary.test` | `empleado123` |
+
+The login form accepts either the username or the system email.
+
+> These accounts are intended exclusively for local demonstration and testing. Never reuse these passwords in a production environment.
+
+## Running tests
+
+Run the current test suite with:
+
+```bash
+composer test
+```
+
+Before deploying the application, additional feature tests should be added for authentication, role permissions, vacation requests and the two-level approval workflow.
+
+## Suggested project structure
+
+```text
+app/
+├── Http/
+│   ├── Controllers/
+│   ├── Middleware/
+│   └── Requests/
+├── Models/
+database/
+├── migrations/
+└── seeders/
+resources/
+└── views/
+routes/
+└── web.php
+tests/
+├── Feature/
+└── Unit/
+```
+
+## Screenshots
+
+Create the following directory:
+
+```text
+docs/images/
+```
+
+Add sanitized screenshots using demonstration data:
+
+```text
+docs/images/login.png
+docs/images/dashboard.png
+docs/images/employees.png
+docs/images/vacation-request.png
+docs/images/manager-approval.png
+docs/images/hr-approval.png
+```
+
+Then display them in this section:
+
+### Login
+
+![Login](docs/images/login.png)
+
+### Administrative dashboard
+
+![Administrative dashboard](docs/images/dashboard.png)
+
+### Employee management
+
+![Employee management](docs/images/employees.png)
+
+### Vacation request
+
+![Vacation request](docs/images/vacation-request.png)
+
+### Two-level approval workflow
+
+![Manager approval](docs/images/manager-approval.png)
+
+![Human Resources approval](docs/images/hr-approval.png)
+
+## Security and privacy
+
+- The public repository must contain demonstration data only.
+- Real employee information must never be committed.
+- Environment files and credentials must remain excluded from version control.
+- Production secrets must be stored in environment variables.
+- Screenshots must use fictional or sanitized employee information.
+- The demonstration passwords must be changed before using the project in another environment.
+- A complete security review is required before processing real employee information.
+
+## Project context
+
+This repository presents an academic and portfolio version of the employee and vacation management system developed for Mary Store.
+
+The public version is intended to demonstrate the application's architecture, role-based access control, database design and vacation approval workflow. It should not be used with real employee information without additional security, privacy and production-readiness reviews.
+
+## Maintainer
+
+**Juan de Jesús Álvarez**
+
+- GitHub: [@hunsett](https://github.com/hunsett)
+- LinkedIn: [Juan de Jesús Álvarez](https://www.linkedin.com/in/juan-de-jesus-alvarez-35419129a)
+- Email: [alvarezjesus9901@gmail.com](mailto:alvarezjesus9901@gmail.com)
