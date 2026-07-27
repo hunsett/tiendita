@@ -115,7 +115,7 @@ Before installing the project, make sure you have:
 
 ```bash
 git clone https://github.com/hunsett/mary-employee-vacation-manager.git
-cd tiendita
+cd mary-employee-vacation-manager
 ```
 
 ### 2. Install PHP dependencies
