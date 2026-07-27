@@ -9,10 +9,10 @@
         <div class="bg-white/80 backdrop-blur rounded-2xl shadow-lg border border-emerald-100 px-6 py-5 flex flex-col md:flex-row justify-between gap-4">
             <div>
                 <h1 class="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
-                    Dashboard
+                    PANEL DE INICIO
                 </h1>
                 <p class="mt-2 text-slate-700 text-sm md:text-base">
-                    Bienvenido,
+                    Bienvenido(a):
                     <span class="font-semibold text-emerald-700">
                         @if($empleado)
                             {{ $empleado->nombre }} {{ $empleado->apellidos }}
