@@ -52,7 +52,7 @@ class EmpleadoController extends Controller
         $departamentos = Departamento::orderBy('nombre')->get();
         $puestos       = Puesto::orderBy('nombre')->get();
 
-        return view('rh.empleados.index', compact(
+        return view('empleados.index', compact(
             'empleados',
             'departamentos',
             'puestos',
@@ -68,7 +68,7 @@ class EmpleadoController extends Controller
         $departamentos = Departamento::orderBy('nombre')->get();
         $puestos       = Puesto::orderBy('nombre')->get();
 
-        return view('rh.empleados.create', compact('departamentos', 'puestos'));
+        return view('empleados.create', compact('departamentos', 'puestos'));
     }
 
     public function store(EmpleadoStoreRequest $request)
@@ -84,7 +84,7 @@ class EmpleadoController extends Controller
     {
         $empleado->load(['departamento', 'puesto', 'usuario']);
 
-        return view('rh.empleados.show', compact('empleado'));
+        return view('empleados.show', compact('empleado'));
     }
 
     public function edit(Empleado $empleado)
@@ -92,7 +92,7 @@ class EmpleadoController extends Controller
         $departamentos = Departamento::orderBy('nombre')->get();
         $puestos       = Puesto::orderBy('nombre')->get();
 
-        return view('rh.empleados.edit', compact('empleado', 'departamentos', 'puestos'));
+        return view('empleados.edit', compact('empleado', 'departamentos', 'puestos'));
     }
 
     public function update(EmpleadoUpdateRequest $request, Empleado $empleado)

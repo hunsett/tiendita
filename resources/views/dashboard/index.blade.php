@@ -9,10 +9,10 @@
         <div class="bg-white/80 backdrop-blur rounded-2xl shadow-lg border border-emerald-100 px-6 py-5 flex flex-col md:flex-row justify-between gap-4">
             <div>
                 <h1 class="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
-                    Dashboard
+                    PANEL DE INICIO
                 </h1>
                 <p class="mt-2 text-slate-700 text-sm md:text-base">
-                    Bienvenido,
+                    Bienvenido(a):
                     <span class="font-semibold text-emerald-700">
                         @if($empleado)
                             {{ $empleado->nombre }} {{ $empleado->apellidos }}
@@ -88,7 +88,7 @@
 
                     @if($saldoActual)
                         <div class="mt-2 text-2xl font-extrabold">
-                            {{ number_format($saldoActual->dias_disponibles, 1) }} días
+                            {{ number_format($saldoActual->dias_disponibles, 0) }} días disponibles
                         </div>
                         <p class="mt-1 text-[11px] text-white/80">
                             Periodo:
@@ -486,19 +486,19 @@
                             <div class="flex justify-between">
                                 <dt class="text-slate-500">Días acumulados</dt>
                                 <dd class="font-semibold text-slate-900">
-                                    {{ number_format($saldoActual->dias_acumulados, 1) }}
+                                    {{ number_format($saldoActual->dias_acumulados, 0) }}
                                 </dd>
                             </div>
                             <div class="flex justify-between">
                                 <dt class="text-slate-500">Días usados</dt>
                                 <dd class="font-semibold text-slate-900">
-                                    {{ number_format($saldoActual->dias_usados, 1) }}
+                                    {{ number_format($saldoActual->dias_usados, 0) }}
                                 </dd>
                             </div>
                             <div class="flex justify-between">
                                 <dt class="text-slate-500">Días disponibles</dt>
                                 <dd class="font-semibold text-emerald-600">
-                                    {{ number_format($saldoActual->dias_disponibles, 1) }}
+                                    {{ number_format($saldoActual->dias_disponibles, 0) }}
                                 </dd>
                             </div>
                         </dl>
@@ -537,7 +537,7 @@
                     </ul>
                 </div>
 
-                {{-- Mensaje / tips --}}
+                {{-- Mensaje / tips 
                 <div class="rounded-2xl border border-emerald-100 bg-gradient-to-br from-emerald-50 via-cyan-50 to-white px-4 py-4 text-[11px] text-emerald-900 shadow-sm">
                     <p class="font-semibold flex items-center gap-1">
                         <span>💡 Tip</span>
@@ -548,7 +548,7 @@
                         de <span class="font-semibold">Tienda Mary</span> va quedando nivel empresa grande, rey. 💚
                     </p>
                 </div>
-
+                --}}
             </div>
         </div>
     </div>
